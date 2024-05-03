@@ -1,0 +1,170 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .form-group label {
+            width: 100px;
+            text-align: left;
+        }
+        .form-group input {
+             margin-top: 5px;
+        }
+        body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.panel {
+  width: 50%;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.panel-heading {
+  background-color: #007bff;
+  color: #fff;
+  padding: 15px 20px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: inline-block;
+  width: 150px; /* Adjust based on your layout */
+  text-align: right;
+  margin-right: 20px;
+  font-weight: bold;
+}
+
+.form-control {
+  width: 250px; /* Adjust based on your layout */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn-default {
+  display: block;
+  width: 120px;
+  margin: 20px auto;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+    </style>
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        {% if row_object %}
+        <h3 class="panel-title" style="text-align: center">Edit House Information</h3>
+        {% else %}
+        <h3 class="panel-title" style="text-align: center">Add House Information</h3>
+        {% endif %}
+    </div>
+    <form method="post" style="text-align: center">
+        {%csrf_token%}
+        <div class="form-group">
+            <label>BROKERTITLE</label>
+            <input type="text" class="form-control" name="BROKERTITLE" placeholder="BROKERTITLE"
+                   value="{{row_object.BROKERTITLE}}">
+        </div>
+        <div class="form-group">
+            <label>TYPE</label>
+            <input type="text" class="form-control" name="TYPE" placeholder="TYPE" value="{{row_object.TYPE}}">
+        </div>
+        <div class="form-group">
+            <label>PRICE</label>
+            <input type="number" class="form-control" name="PRICE" placeholder="PRICE" value="{{row_object.PRICE}}">
+        </div>
+        <div class="form-group">
+            <label>BEDS</label>
+            <input type="number" class="form-control" name="BEDS" placeholder="BEDS" value="{{row_object.BEDS}}">
+        </div>
+        <div class="form-group">
+            <label>BATH</label>
+            <input type="number" class="form-control" name="BATH" placeholder="BATH" value="{{row_object.BATH}}">
+        </div>
+        <div class="form-group">
+            <label>PROPERTYSQFT</label>
+            <input type="number" class="form-control" name="PROPERTYSQFT" placeholder="PROPERTYSQFT"
+                   value="{{row_object.PROPERTYSQFT}}">
+        </div>
+        <div class="form-group">
+            <label>ADDRESS</label>
+            <input type="text" class="form-control" name="ADDRESS" placeholder="ADDRESS"
+                   value="{{row_object.ADDRESS}}">
+        </div>
+        <div class="form-group">
+            <label>STATE</label>
+            <input type="text" class="form-control" name="STATE" placeholder="STATE" value="{{row_object.STATE}}">
+        </div>
+        <div class="form-group">
+            <label>MAIN_ADDRESS</label>
+            <input type="text" class="form-control" name="MAIN_ADDRESS" placeholder="MAIN_ADDRESS"
+                   value="{{row_object.MAIN_ADDRESS}}">
+        </div>
+        <div class="form-group">
+            <label>ADMINISTRATIVE_AREA_LEVEL_2</label>
+            <input type="text" class="form-control" name="ADMINISTRATIVE_AREA_LEVEL_2"
+                   placeholder="ADMINISTRATIVE_AREA_LEVEL_2" value="{{row_object.ADMINISTRATIVE_AREA_LEVEL_2}}">
+        </div>
+        <div class="form-group">
+            <label>LOCALITY</label>
+            <input type="text" class="form-control" name="LOCALITY" placeholder="LOCALITY"
+                   value="{{row_object.LOCALITY}}">
+        </div>
+        <div class="form-group">
+            <label>SUBLOCALITY</label>
+            <input type="text" class="form-control" name="SUBLOCALITY" placeholder="SUBLOCALITY"
+                   value="{{row_object.SUBLOCALITY}}">
+        </div>
+        <div class="form-group">
+            <label>STREET_NAME</label>
+            <input type="text" class="form-control" name="STREET_NAME" placeholder="STREET_NAME"
+                   value="{{row_object.STREET_NAME}}">
+        </div>
+        <div class="form-group">
+            <label>LONG_NAME</label>
+            <input type="text" class="form-control" name="LONG_NAME" placeholder="LONG_NAME"
+                   value="{{row_object.LONG_NAME}}">
+        </div>
+        <div class="form-group">
+            <label>FORMATTED_ADDRESS</label>
+            <input type="text" class="form-control" name="FORMATTED_ADDRESS" placeholder="FORMATTED_ADDRESS"
+                   value="{{row_object.FORMATTED_ADDRESS}}">
+        </div>
+        <div class="form-group">
+            <label>LATITUDE</label>
+            <input type="number" class="form-control" name="LATITUDE" placeholder="LATITUDE"
+                   value="{{row_object.LATITUDE}}">
+        </div>
+        <div class="form-group">
+            <label>LONGITUDE</label>
+            <input type="number" class="form-control" name="LONGITUDE" placeholder="LONGITUDE"
+                   value="{{row_object.LONGITUDE}}">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
+<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-4.6.2-dist/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

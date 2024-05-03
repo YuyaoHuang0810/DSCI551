@@ -1,0 +1,209 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+}
+button[type="submit"] {
+  padding: 10px 15px;
+  background-color: #4CAF50; /* Green background color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049; /* Darker green hover color */
+}
+
+/* Style the heading */
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+/* Style the buttons */
+.btn {
+  display: inline-block;
+  padding: 8px 12px;
+  margin-right: 10px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+/* Style the form input and button */
+.form-control {
+  width: 200px;
+  padding: 6px 10px;
+  margin-right: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Style the table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+/* Style the table header */
+th {
+  background-color: #007bff;
+  color: #fff;
+  text-align: left;
+  padding: 10px;
+}
+
+/* Style the table rows */
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Style the pagination links */
+a {
+  display: inline-block;
+  padding: 6px 10px;
+  margin-right: 5px;
+  text-decoration: none;
+  color: #333;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.curPage {
+  font-weight: bold;
+}
+
+</style>
+</head>
+<body>
+<div>
+    <div>
+        <div class="panel-heading">
+            <h2 style="text-align: center">NY House List</h2>
+        </div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div style="margin-bottom: 10px; display: flex; align-items: center;">
+                <a class="btn btn-success" href="/houseList/add" style="margin-right: 10px;">Add Housing Information</a>
+            </div>
+            <div>
+            </div>
+            <!-- Table -->
+            <center>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>BROKERTITLE</th>
+                        <th>TYPE</th>
+                        <th>PRICE</th>
+                        <th>BEDS</th>
+                        <th>BATH</th>
+                        <th>PROPERTYSQFT</th>
+                        <th>ADDRESS</th>
+                        <th>STATE</th>
+                        <th>MAIN ADDRESS</th>
+                        <th>ADMINISTRATIVE AREA LEVEL 2</th>
+                        <th>LOCALITY</th>
+                        <th>SUBLOCALITY</th>
+                        <th>STREET NAME</th>
+                        <th>LONG NAME</th>
+                        <th>FORMATTED ADDRESS</th>
+                        <th>LATITUDE</th>
+                        <th>LONGITUDE</th>
+                        <th>ACTION</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for obj in context.pageInfo.object_list %}
+                    <tr>
+                        <td>{{obj.Id}}</td>
+                        <td>{{obj.BROKERTITLE}}</td>
+                        <td>{{obj.TYPE}}</td>
+                        <td>{{obj.PRICE}}</td>
+                        <td>{{obj.BEDS}}</td>
+                        <td>{{obj.BATH}}</td>
+                        <td>{{obj.PROPERTYSQFT}}</td>
+                        <td>{{obj.ADDRESS}}</td>
+                        <td>{{obj.STATE}}</td>
+                        <td>{{obj.MAIN_ADDRESS}}</td>
+                        <td>{{obj.ADMINISTRATIVE_AREA_LEVEL_2}}</td>
+                        <td>{{obj.LOCALITY}}</td>
+                        <td>{{obj.SUBLOCALITY}}</td>
+                        <td>{{obj.STREET_NAME}}</td>
+                        <td>{{obj.LONG_NAME}}</td>
+                        <td>{{obj.FORMATTED_ADDRESS}}</td>
+                        <td>{{obj.LATITUDE}}</td>
+                        <td>{{obj.LONGITUDE}}</td>
+                        <td>
+                            <a class="btn btn-primary" href="/houseList/{{obj.Id}}/{{obj.BEDS}}/edit/">Edit</a>
+                            <a class="btn btn-danger" href="/houseList/{{obj.Id}}/{{obj.BEDS}}/delete/">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {%if context.pageInfo.has_previous %}
+                <a href="{% url 'house_list_by_page' context.pageInfo.previous_page_number %}"
+                   style="background:yellow">Previous
+                    Page</a>
+                {% endif %}
+
+                {% for page in page_range %}
+                {% if context.pageInfo.number == page %}
+                <span class="curPage">{{page}}</span>
+                {% else %}
+                <a href="{% url 'house_list_by_page' page%}">{{page}}</a>
+                {% endif %}
+                {% endfor %}
+                {% if context.pageInfo.has_next %}
+                <a href="{% url 'house_list_by_page' context.pageInfo.next_page_number %}" style="background:pink">Next
+                    Page</a>
+                {% endif %}
+                <br>
+            </center>
+            page:{{context.pageInfo.number}}<br>
+            Number of per page:{{context.pageInfo.paginator.per_page}}<br>
+        </div>
+    </div>
+</div>
+  </body>
+</html>
